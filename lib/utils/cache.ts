@@ -6,6 +6,15 @@ import * as path from 'node:path';
 import { strict as assert } from 'node:assert';
 import { Log } from './log.js';
 
+/**
+ * Struct of `CacheItem`.
+ * 
+ * @interface CacheItem
+ * @property {string} key
+ * @property {Record<string, any>} value
+ * @property {number} expire
+ * @export CacheItem
+ */
 interface CacheItem {
     key: string;
     value: Record<string, any>;
@@ -13,12 +22,40 @@ interface CacheItem {
     expire: number;
 }
 
+/**
+ * Persistent cache.
+ * 
+ * @class Cache
+ * @property {boolean} isDirty
+ * @property {number} flushInterval
+ * @property {string} name
+ * @property {string} cacheFile
+ * @property {Map<string, CacheItem>} cache
+ * @property {fsPromises.FileHandle | undefined} fd
+ * @property {NodeJS.Timeout | undefined} timeoutId
+ * @property {debug.Debugger} log
+ * @method init
+ * @method set
+ * @method get
+ * @method has
+ * @method delete
+ * @method clear
+ * @method save
+ * @method startFlush
+ * @method stopFlush
+ * @method flush
+ * @export Cache
+ */
 class Cache {
+    // Hint whether need to flush to disk.
     isDirty: boolean;
     flushInterval: number;
     name: string;
+    // Cache in disk.
     cacheFile: string;
+    // Cache in memory.
     cache: Map<string, CacheItem>;
+    // File handle to cache file.
     fd: fsPromises.FileHandle | undefined;
     timeoutId: NodeJS.Timeout | undefined;
     log: debug.Debugger;
@@ -32,6 +69,7 @@ class Cache {
         this.log = Log.createLog(`bing-translator:cache:${name}`);
     }
 
+    // Init cache: create cache file if not exist, otherwise load cache from disk.
     async init(): Promise<void> {
         await fsPromises.access(this.cacheFile, fs.constants.F_OK)
             .then(async () => {
@@ -75,7 +113,8 @@ class Cache {
             this.timeoutId = undefined;
         }
     }
-    async flush(): Promise<void> {
+    // Should only be called internally.
+    private async flush(): Promise<void> {
         if (!this.cache) {
             return;
         }

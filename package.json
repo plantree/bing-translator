@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "execute": "DEBUG* node ./dist/index.js",
+    "execute": "DEBUG=bing-translator* node ./dist/index.js",
     "test": "tsc -p tsconfig.test.json && DEBUG=bing-translator* mocha ./test-dist/test/ --timeout 10000",
     "clear": "rm -rf ./dist && rm -rf ./test-dist"
   },

@@ -8,11 +8,14 @@ describe('Log', () => {
         assert.isFunction(Log.log);
         assert.isTrue(Log.isEnable());
         Log.log('test');
+
         console.log(Log.disable());
         assert.isFalse(Log.isEnable());
         Log.log('test');
+
         Log.enable();
         assert.isTrue(Log.isEnable());
+        
         let newLog = Log.createLog('bing-translator:cache');
         newLog('test');
     });
