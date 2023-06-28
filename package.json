@@ -1,6 +1,6 @@
 {
   "name": "bing-translator",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "An easy way to get the translator service from Bing",
   "author": "plantree",
   "license": "MIT",
@@ -11,16 +11,22 @@
     "bing",
     "translate",
     "translator",
-    "api"
+    "api",
+    "free",
+    "cache"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/plantree/bing-translator"
+    "url": "git+https://github.com/plantree/bing-translator"
   },
+  "bugs": {
+    "url": "https://github.com/plantree/bing-translator/issues"
+  },
+  "homepage": "https://github.com/plantree/bing-translator#readme",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "execute": "DEBUG=bing-translator* node ./dist/index.js",
-    "test": "tsc -p tsconfig.test.json && DEBUG=bing-translator* mocha ./test-dist/test/ --timeout 10000",
+    "test": "tsc -p tsconfig.test.json && DEBUG=bing-translator* mocha ./test-dist/test --timeout 10000",
     "clear": "rm -rf ./dist && rm -rf ./test-dist"
   },
   "dependencies": {
@@ -35,6 +41,6 @@
     "mocha": "^10.2.0",
     "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.2",
-    "typescript": "^3.9.10"
+    "typescript": "^4.9.4"
   }
 }

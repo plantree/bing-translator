@@ -12,7 +12,6 @@ import debug from 'debug';
  */
 export class Log {
     private static namespace: string = 'bing-translator*';
-
     static log: debug.Debugger = debug('bing-translator');
 
     static enable: () => void = () => {
@@ -24,8 +23,7 @@ export class Log {
     static isEnable: () => boolean = () => {
         return Log.log.enabled;
     }
-
     static createLog: (newNamespace: string) => debug.Debugger = (newNamespace: string) => {
-        return debug(newNamespace);
+        return debug(`bing-translator:${newNamespace}`);
     }
 }

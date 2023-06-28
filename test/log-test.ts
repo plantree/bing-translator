@@ -16,7 +16,7 @@ describe('Log', () => {
         Log.enable();
         assert.isTrue(Log.isEnable());
         
-        let newLog = Log.createLog('bing-translator:cache');
+        let newLog = Log.createLog('cache');
         newLog('test');
     });
 });
