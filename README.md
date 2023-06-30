@@ -4,7 +4,8 @@
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg"></a>
 <a href="https://npmcharts.com/compare/bing-translate-service?minimal=true"><img src="https://img.shields.io/npm/dm/bing-translator-service.svg"></a>
 </p>
-> **WARNING:** Should not be used for commercial purposed. If you really want, please use the [Azure Service](https://learn.microsoft.com/en-us/azure/cognitive-services/translator/reference/v3-0-languages). 
+
+> WARNING: Should not be used for commercial purposed. If you really want, please use the [Azure Service](https://learn.microsoft.com/en-us/azure/cognitive-services/translator/reference/v3-0-languages). 
 
 An **easy** way to get the translator service from Bing.
 

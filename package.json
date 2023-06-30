@@ -1,6 +1,6 @@
 {
   "name": "bing-translator-service",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "description": "An easy way to get the translator service from Bing",
   "author": "plantree",
   "license": "MIT",
