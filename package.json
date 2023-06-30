@@ -1,12 +1,12 @@
 {
-  "name": "bing-translator",
-  "version": "0.0.1",
+  "name": "bing-translator-service",
+  "version": "0.0.5",
   "description": "An easy way to get the translator service from Bing",
   "author": "plantree",
   "license": "MIT",
   "type": "module",
-  "main": "./index.js",
-  "types": "./index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "keywords": [
     "bing",
     "translate",
@@ -24,17 +24,18 @@
   },
   "homepage": "https://github.com/plantree/bing-translator#readme",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && cp ./lib/index.d.ts ./dist/index.d.ts",
     "execute": "DEBUG=bing-translator* node ./dist/index.js",
     "test": "tsc -p tsconfig.test.json && DEBUG=bing-translator* mocha ./test-dist/test --timeout 10000",
     "clear": "rm -rf ./dist && rm -rf ./test-dist"
   },
   "dependencies": {
-    "@types/debug": "^4.1.8",
-    "axios": "^1.4.0"
+    "axios": "^1.4.0",
+    "debug": "^4.3.4"
   },
   "devDependencies": {
     "@types/chai": "^4.3.5",
+    "@types/debug": "^4.1.8",
     "@types/mocha": "^10.0.1",
     "@types/node": "^17.0.41",
     "chai": "^4.3.7",

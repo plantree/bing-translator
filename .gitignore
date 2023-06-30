@@ -1,4 +1,5 @@
 node_modules/
-dist/
 test-dist/
+.cache/
+dist/
 package-lock.json

@@ -1,9 +1,9 @@
 'use strict';
 
 import { assert } from "chai";
-import BingTranslator from "../lib/translator.js";
 import * as fsPromises from 'node:fs/promises';
 import * as path from 'node:path';
+import { BingTranslator } from "../lib/translator.js";
 
 describe('BingTranslator', () => {
     after(async () => {
@@ -13,7 +13,7 @@ describe('BingTranslator', () => {
                 throw err;
             });
     });
-
+    
     it("should be able to create a translator instance", async () => {
         let bingTranslator = await BingTranslator.createTranslator();
         assert.isTrue(bingTranslator instanceof BingTranslator);

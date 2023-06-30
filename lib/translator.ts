@@ -13,34 +13,34 @@ const TRANSLATE_URL: string = 'https://www.bing.com/ttranslatev3?isVertical=1';
 const SPELL_CHECK_URL: string = 'https://www.bing.com/tspellcheckv3?isVertical=1';
 const USER_AGENT: string = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36';
 
-interface TranslationResult {
+export interface TranslationResult {
   detectedLanguage: DetectedLanguage
   translations: Translation[]
 }
 
-interface DetectedLanguage {
+export interface DetectedLanguage {
   language: string
   score: number
 }
 
-interface Translation {
+export interface Translation {
   text: string
   transliteration?: Transliteration
   to: string
   sentLen: SentLen
 }
 
-interface Transliteration {
+export interface Transliteration {
   text: string
   script: string
 }
 
-interface SentLen {
+export interface SentLen {
   srcSentLen: number[]
   transSentLen: number[]
 }
 
-class BingTranslator {
+export class BingTranslator {
   private fromLang_: string;
   private toLang_: string;
   private cache_: Cache;
@@ -89,7 +89,11 @@ class BingTranslator {
       return this.factory_.get(name) as BingTranslator;
     }
     let translator = new BingTranslator(fromLang, toLang);
-    await translator.init();
+    try {
+      await translator.init();
+    } catch (err) {
+      throw err;
+    }
     this.factory_.set(name, translator);
     return translator;
   }
@@ -157,7 +161,7 @@ class BingTranslator {
       throw new Error(`Language ${fromLang} is not supported.`);
     }
     if (!isLanguageSupported(toLang)) {
-      // throw new Error(`Language ${toLang} is not supported.`);
+      throw new Error(`Language ${toLang} is not supported.`);
     }
     if (fromLang === toLang) {
       throw new Error(`The source language and the target language cannot be the same.`);
@@ -284,108 +288,3 @@ class BingTranslator {
     return params;
   }
 }
-
-export default BingTranslator;
-
-// languages service
-// let url = 'https://api.cognitive.microsofttranslator.com/languages?api-version=3.0';
-
-// axios.get(url).then((res: any) => {
-//     console.log(res.data);
-// }).catch((err: any) => {
-//     console.log(err);
-// });
-
-// translate service
-// get cache
-// async function fetchConfig() {
-//   const cache = new Cache('test');
-//   await cache.init();
-//   let url = 'https://bing.com/translator';
-//   await axios.get(url, { withCredentials: true }).then(async (res: any) => {
-//     const body = res.data;
-//     const headers = res.headers;
-//     const cookie = headers['set-cookie'].map((c: string) => c.split(';')[0]).join('; ')
-//     const IG = body.match(/IG:"([^"]+)"/)[1];
-//     const IID = body.match(/data-iid="([^"]+)"/)[1];
-//     const [key, token, expireDuration] = JSON.parse(
-//       body.match(/params_AbusePreventionHelper\s?=\s?([^\]]+\])/)[1]
-//     );
-//     console.log(IG, IID, key, token, expireDuration);
-//     cache.set('IG', IG, expireDuration);
-//     cache.set('IID', IID, expireDuration);
-//     cache.set('key', key, expireDuration);
-//     cache.set('token', token, expireDuration);
-//     cache.set('cookie', cookie, expireDuration);
-//     await cache.save();
-//     return true;
-//   }).catch((err: any) => {
-//     console.log(err);
-//     return false;
-//   });
-// }
-
-// // await fetchConfig();
-
-// async function makeRequestUrl(isSpellCheck: boolean = false) {
-//   const cache = new Cache('test');
-//   await cache.init();
-//   const [IG, IID] = [cache.get('IG')?.value, cache.get('IID')?.value]
-//   let baseUrl = isSpellCheck ? 'https://bing.com/tspellcheckv3?isVertical=1' : 'https://www.bing.com/ttranslatev3?isVertical=1';
-//   let url = `${baseUrl}&IG=${IG}&IID=${IID}.1`;
-//   return url;
-// }
-
-// let url = await makeRequestUrl();
-// console.log(url);
-
-// async function makeRequestBody(isSpellCheck: boolean, text: string, fromLang: string, toLang: string) {
-//   const cache = new Cache('test');
-//   await cache.init();
-//   const [key, token] = [cache.get('key')?.value, cache.get('token')?.value];
-//   const body = {
-//     fromLang,
-//     to: toLang,
-//     text,
-//     token,
-//     key
-//   }
-//   return body;
-// }
-
-// let body = await makeRequestBody(false, 'hello', 'en', 'zh-Hans');
-// console.log(body);
-
-// async function translate(text: string, fromLang: string, toLang: string) {
-//   const cache = new Cache('test');
-//   await cache.init();
-//   const cookie = cache.get('cookie')?.value;
-//   let url = await makeRequestUrl();
-//   let requestBody = await makeRequestBody(false, text, fromLang, toLang);
-//   let headers = {
-//     'content-type': 'application/x-www-form-urlencoded',
-//     cookie: cookie,
-//     referer: 'https://www.bing.com/translator',
-//     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
-//   }
-//   console.log(headers);
-//   await axios({
-//     method: 'post',
-//     url,
-//     data: requestBody,
-//     headers,
-//     responseType: 'json'
-//   }).then((res: any) => {
-//     console.log(res.data[0]['translations']);
-//   }).catch((err: any) => {
-//     console.log(err);
-//   });
-// }
-
-// await translate('hello', 'en', 'zh-Hans');
-
-// translate
-// const cache = new Cache('test');
-// await cache.init();
-// let url = 'https://bing.com/ttranslatev3?isVertical=1';
-// axios.

@@ -76,7 +76,7 @@ class Cache {
         this.isDirty = false;
         this.flushInterval = flushInterval;
         this.name = name;
-        this.cacheFile = path.join(process.cwd(), `.cache/translator-${name}.json`);
+        this.cacheFile = path.join(process.cwd(), '.cache', `translator-${name}.json`);
         this.cache = new Map();
         this.log = Log.createLog(`cache:${name}`);
         this.isClosed = false;
@@ -105,7 +105,7 @@ class Cache {
             })
             .catch(async () => {
                 // Not exist, create it.
-                await fsPromises.mkdir(this.cacheFile.split('/').slice(0, -1).join('/'), { recursive: true })
+                await fsPromises.mkdir(path.dirname(this.cacheFile), { recursive: true })
                     .then(async () => {
                         await fsPromises.writeFile(this.cacheFile, '{}')
                             .catch((err) => {
