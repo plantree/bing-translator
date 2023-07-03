@@ -2,4 +2,3 @@ node_modules/
 test-dist/
 .cache/
 dist/
-package-lock.json
