@@ -27,7 +27,8 @@
     "build": "tsc -p tsconfig.json && cp ./lib/index.d.ts ./dist/index.d.ts",
     "execute": "DEBUG=bing-translator* node ./dist/index.js",
     "test": "tsc -p tsconfig.test.json && DEBUG=bing-translator* mocha ./test-dist/test --timeout 10000",
-    "clear": "rm -rf ./dist && rm -rf ./test-dist"
+    "clear": "rm -rf ./dist && rm -rf ./test-dist",
+    "lint": "tslint -c tslint.json 'src/**/*.ts' 'test/**/*.ts'"
   },
   "dependencies": {
     "axios": "^1.4.0",

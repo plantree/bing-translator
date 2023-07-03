@@ -26,7 +26,7 @@ import { BingTranslator } from "bing-translator-service";
 // create an instance of translator from 'en' to 'zh-Hans'. 
 const translator = await BingTranslator.createTranslator("en", "zh-Hans");
 translator.translate("Hello world")
-    .then((data) => {
+    .then(data => {
       console.log(JSON.stringify(data, null, 2));
     })
     .catch(err => {
@@ -40,7 +40,7 @@ import BingTranslator from "bing-translator-service";
 const translator = await BingTranslator.createTranslator("auto", "zh-Hans");
 // don't use the default translation rule and use a given one.
 translator.translate("Hello world", "en", "zh-Hans")
-    .then((data) => {
+    .then(data => {
       console.log(JSON.stringify(data, null, 2));
     })
     .catch(err => {
@@ -81,13 +81,13 @@ translator.translate("Hello world", "en", "zh-Hans")
 
 Although [bing-translate-api](https://github.com/plainheart/bing-translate-api/tree/master) has already provided a simple way to help using bing translate service, during using it, I found some more features are needed:
 
-- Hot start
-- More information from response
+- Hot start, to increase the startup speed.
+- More information from response.
 
 So,
 
 - I write a cache to save status, which not only reduces impact on bing service, but also starts service quickly.
-- Pass out the complete result of the service.
+- Pass out the complete result of the bing service.
 
 ## API
 
@@ -127,6 +127,8 @@ export class BingTranslator {
     translate(text: string, fromLang: string, toLang: string): Promise<TranslationResult>;
 }
 ```
+
+Supported languages could be found here: [lang.json](https://github.com/plantree/bing-translator/blob/main/lib/lang/lang.json).
 
 ## License 
 
